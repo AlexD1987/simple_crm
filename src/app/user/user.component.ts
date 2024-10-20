@@ -6,6 +6,7 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -17,10 +18,12 @@ export class UserComponent {
 
   constructor(public dialog: MatDialog) { }
 
+
   openDialog() {
     this.dialog.open(UserDialogComponent, {
       width: '400px', 
-      height: '428px'
+      height: '660px',
+      data:  {firstName: '', lastName: '', birtDate: '', street: '', zipCode: null, city: ''}
     });
   }
 }
