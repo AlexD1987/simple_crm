@@ -3,6 +3,20 @@
     justify-content: center;
     flex-direction: column;
     padding: 32px;
+    position: relative;
+
+    mat-progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    mat-icon {
+        color: #75FB4C;
+        position: absolute;
+        top: 38px;
+        right: 32px;
+    }
 }
 
 .dialogButton {
@@ -11,3 +25,4 @@
     display: flex;
     justify-content: space-between;
 }
+
