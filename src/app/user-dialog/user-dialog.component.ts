@@ -1,5 +1,5 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormsModule } from '@angular/forms';
+import { Component, inject, Inject } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule, DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-user-dialog',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatProgressBarModule, MatIconModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatProgressBarModule, MatIconModule],
   providers: [ {provide: DateAdapter, useClass: NativeDateAdapter}, {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}],
   templateUrl: './user-dialog.component.html',
   styleUrl: './user-dialog.component.scss'
@@ -38,6 +38,13 @@ export class UserDialogComponent {
   zipCode: number | null = null;
   city: string = '';
 
+  firstNameControl = new FormControl();
+  lastNameControl = new FormControl();
+  birthDateControl = new FormControl();
+  streetControl = new FormControl();
+  zipCodeControl = new FormControl();
+  cityControl = new FormControl();
+
  
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>, @Inject(MAT_DIALOG_DATA) public userData: any = {}) {
       this.firstName = userData.firstName || ''; 
@@ -56,7 +63,9 @@ export class UserDialogComponent {
   }
 
   async saveUser() {
+    this.checkValidInput();
     if (this.firstName && this.lastName && this.birthDate && this.street && this.zipCode && this.city) {
+      this.checkAddedUser = true;
       this.userData = {
         firstName: this.firstName,
         lastName: this.lastName,
@@ -90,7 +99,20 @@ export class UserDialogComponent {
         this.checkAddedUser = true;
         this.clearInput();
       }, 1000);
+      setTimeout(() => {
+        this.dialogRef.close();
+      }, 2500);
     }
+  }
+
+  checkValidInput() {
+      this.firstNameControl.markAsTouched();
+      this.lastNameControl.markAsTouched();
+      this.birthDateControl.markAsTouched();
+      this.streetControl.markAsTouched();
+      this.streetControl.markAsTouched();
+      this.zipCodeControl.markAsTouched();
+      this.cityControl.markAsTouched();
   }
 
   clearInput() {
@@ -100,5 +122,13 @@ export class UserDialogComponent {
     this.street = '';
     this.zipCode = null;
     this.city = '';
+
+    this.firstNameControl.markAsUntouched();
+    this.lastNameControl.markAsUntouched();
+    this.birthDateControl.markAsUntouched();
+    this.streetControl.markAsUntouched();
+    this.streetControl.markAsUntouched();
+    this.zipCodeControl.markAsUntouched();
+    this.cityControl.markAsUntouched();
   }
 }

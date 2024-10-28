@@ -6,29 +6,29 @@
     <h1>Add User</h1>
     <mat-form-field class="example-full-width">
         <mat-label>First name</mat-label>
-        <input matInput [(ngModel)]="firstName" required>
+        <input matInput [formControl]="firstNameControl" class="ng-touched" [(ngModel)]="firstName" required>
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Last name</mat-label>
-        <input matInput [(ngModel)]="lastName" required>
+        <input matInput [formControl]="lastNameControl" [(ngModel)]="lastName" required>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Birth Date</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="birthDate" required>
+        <input matInput [formControl]="birthDateControl" [matDatepicker]="picker" [(ngModel)]="birthDate" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Street</mat-label>
-        <input matInput [(ngModel)]="street" required>
+        <input matInput [formControl]="streetControl" [(ngModel)]="street" required>
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Zip code</mat-label>
-        <input matInput [(ngModel)]="zipCode" required>
+        <input matInput [formControl]="zipCodeControl" [(ngModel)]="zipCode" required>
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>City</mat-label>
-        <input matInput [(ngModel)]="city" required> 
+        <input matInput [formControl]="cityControl" [(ngModel)]="city" required> 
     </mat-form-field>
 </div>
 <div class="dialogButton">
