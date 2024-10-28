@@ -65,7 +65,6 @@ export class UserDialogComponent {
   async saveUser() {
     this.checkValidInput();
     if (this.firstName && this.lastName && this.birthDate && this.street && this.zipCode && this.city) {
-      this.checkAddedUser = true;
       this.userData = {
         firstName: this.firstName,
         lastName: this.lastName,

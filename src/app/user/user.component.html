@@ -1,4 +1,6 @@
-<p>user works!</p>
+<div *ngFor="let item of users">
+    <p>{{ item.firstName }}</p>
+</div>
 <button class="add-user" mat-fab matTooltip="add new User" [matTooltipPosition]="'above'" (click)="openDialog()">
     <mat-icon>add</mat-icon>
 </button>

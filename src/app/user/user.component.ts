@@ -1,22 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { Firestore, collectionData, CollectionReference, collection } from '@angular/fire/firestore';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, UserDialogComponent, MatDialogModule],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, UserDialogComponent, MatDialogModule, CommonModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
+  users: any[] = [];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private firestore: Firestore) { }
+  ngOnInit(): void {
+    const userCollection: CollectionReference = collection(this.firestore, 'users');
+
+    collectionData(userCollection, {idField: 'id'}).subscribe((result: any[]) => {
+      this.users = result;
+      console.log('das sind die geladenen Users',this.users);
+    })
+  }
 
 
   openDialog() {
