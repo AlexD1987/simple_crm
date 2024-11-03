@@ -1,3 +1,36 @@
+
+table {
+    border-collapse: collapse;
+
+    .table-head {
+        th {
+            color: gray;
+            text-align: start;
+            padding: 16px;
+            border-bottom: 1px solid black;
+        }
+    }
+
+    .user-item {
+        cursor: pointer;
+        border-bottom: 1px solid lightgray;
+
+        td {
+            padding: 16px;
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+
+        &:hover {
+          background-color: lightgray;
+        }
+    }
+
+    
+}
+
 .add-user {
     position: absolute;
     bottom: 48px;

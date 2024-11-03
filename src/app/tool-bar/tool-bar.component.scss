@@ -9,7 +9,13 @@
 
     .logo {
         border-bottom: 1px solid rgb(216, 216, 216);
-        padding: 32px;
+        display: flex;
+        justify-content: center;
+        
+        img{
+            width: 164px;
+            height: auto;
+        }
     }
 
     ul {
@@ -44,8 +50,6 @@ mat-toolbar {
     flex-direction: column;
     .router-container {
         padding: 32px;
-        display: flex;
-        flex: 1;
         color: black;
     }
 }
