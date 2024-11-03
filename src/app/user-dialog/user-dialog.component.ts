@@ -37,6 +37,7 @@ export class UserDialogComponent {
   street: string = '';
   zipCode: number | null = null;
   city: string = '';
+  mail: string = '';
 
   firstNameControl = new FormControl();
   lastNameControl = new FormControl();
@@ -44,6 +45,7 @@ export class UserDialogComponent {
   streetControl = new FormControl();
   zipCodeControl = new FormControl();
   cityControl = new FormControl();
+  mailControl = new FormControl();
 
  
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>, @Inject(MAT_DIALOG_DATA) public userData: any = {}) {
@@ -52,7 +54,8 @@ export class UserDialogComponent {
       this.birthDate = userData.birthDate || '';
       this.street = userData.street || '';
       this.zipCode = userData.zipCode || '';
-      this.city = userData.city ||'';
+      this.city = userData.city || '';
+      this.mail = userData.mail || '';
 
       const aCollection = collection(this.firestore, 'items');
       this.items$ = collectionData(aCollection);
@@ -64,14 +67,15 @@ export class UserDialogComponent {
 
   async saveUser() {
     this.checkValidInput();
-    if (this.firstName && this.lastName && this.birthDate && this.street && this.zipCode && this.city) {
+    if (this.firstName && this.lastName && this.birthDate && this.street && this.zipCode && this.city && this.mail) {
       this.userData = {
         firstName: this.firstName,
         lastName: this.lastName,
         birthDate: this.birthDate ? this.birthDate.getTime() : null,
         street: this.street,
         zipCode: this.zipCode,
-        city: this.city
+        city: this.city,
+        mail: this.mail
       };
   
       await this.addUserData();
@@ -88,7 +92,8 @@ export class UserDialogComponent {
         birthDate: this.userData.birthDate,
         street: this.userData.street,
         zipCode: this.userData.zipCode,
-        city: this.userData.city
+        city: this.userData.city,
+        mail: this.userData.mail,
       })
     } catch (error) {
       console.error("Fehler beim Speichern des Benutzers:", error);
@@ -112,6 +117,7 @@ export class UserDialogComponent {
       this.streetControl.markAsTouched();
       this.zipCodeControl.markAsTouched();
       this.cityControl.markAsTouched();
+      this.mailControl.markAllAsTouched();
   }
 
   clearInput() {
@@ -121,6 +127,7 @@ export class UserDialogComponent {
     this.street = '';
     this.zipCode = null;
     this.city = '';
+    this.mail = '';
 
     this.firstNameControl.markAsUntouched();
     this.lastNameControl.markAsUntouched();
@@ -129,5 +136,6 @@ export class UserDialogComponent {
     this.streetControl.markAsUntouched();
     this.zipCodeControl.markAsUntouched();
     this.cityControl.markAsUntouched();
+    this.mailControl.markAsUntouched();
   }
 }

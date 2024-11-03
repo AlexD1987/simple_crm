@@ -44,8 +44,12 @@ export class UserComponent implements OnInit, OnDestroy {
   openDialog() {
     this.dialog.open(UserDialogComponent, {
       width: '400px', 
-      height: '660px',
+      height: '728px',
       data:  {firstName: '', lastName: '', birtDate: '', street: '', zipCode: null, city: ''}
     });
+  }
+
+  logID(id: any) {
+    console.log(id);
   }
 }

@@ -30,6 +30,10 @@
         <mat-label>City</mat-label>
         <input matInput [formControl]="cityControl" [(ngModel)]="city" required> 
     </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>E-Mail</mat-label>
+        <input matInput [formControl]="mailControl" [(ngModel)]="mail" required> 
+    </mat-form-field>
 </div>
 <div class="dialogButton">
     <button mat-flat-button color="primary" (click)="closeDialog()">Cancel</button>
