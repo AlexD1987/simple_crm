@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class UserComponent implements OnInit, OnDestroy {
   users: any[] = [];
   private unsubscribe$ = new Subject<void>();
 
-  constructor(public dialog: MatDialog, private firestore: Firestore) { }
+  constructor(public dialog: MatDialog, private firestore: Firestore, private router: Router) { }
   
   ngOnInit(): void {
     const userCollection: CollectionReference = collection(this.firestore, 'users');
@@ -51,5 +52,6 @@ export class UserComponent implements OnInit, OnDestroy {
 
   logID(id: any) {
     console.log(id);
+    this.router.navigate(['/user/', id]);
   }
 }

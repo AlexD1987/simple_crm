@@ -1,0 +1,38 @@
+mat-card {
+    height: 300px;
+    background-color: #F5CF3D;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 32px;
+
+
+    img {
+        padding: 16px;
+        height: 100px;
+        width: 100px;
+    }
+
+    .userInfo {
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        h2 {
+            margin-bottom: 0;
+        }
+    }
+
+    mat-icon {
+        position: absolute;
+        font-size: 36px;
+        height: 36px;
+        width: 36px;
+        padding: 16px;
+        right: 0;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
