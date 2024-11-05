@@ -1,21 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CollectionReference, doc, Firestore } from '@angular/fire/firestore';
+import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { collection } from 'firebase/firestore';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [MatCardModule, MatIconModule],
+  imports: [MatCardModule, MatIconModule, CommonModule],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent implements OnInit, OnDestroy{
  constructor(private router: Router, private firestore: Firestore, private route: ActivatedRoute) {}
-  userInfo = {};
+  userInfo: any = {};
   userId: string | undefined;
   private unsubscribe$ = new Subject<void>();
 
@@ -25,8 +25,17 @@ export class UserDetailComponent implements OnInit, OnDestroy{
         const userId = params.get('id');
         console.log(userId);
 
-        const userCollection = collection(this.firestore, 'users');
-        const userDocRef = doc(userCollection, userId);
+        const userRef = doc(this.firestore, 'users/' + userId);
+        console.log(userRef);
+        docData(userRef)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(
+          (data: {}) => {
+            this.userInfo = data;
+            console.log(this.userInfo);
+            this.showData();
+          }
+        )
       }
     )
   }
@@ -38,5 +47,9 @@ export class UserDetailComponent implements OnInit, OnDestroy{
 
  closeUserDetail() {
     this.router.navigate(['/user']);
+ }
+
+ showData() {
+  console.log(this.userInfo.firstName);
  }
 }
