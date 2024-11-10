@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, UserDialogComponent, MatDialogModule, CommonModule, MatCardModule],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, MatDialogModule, CommonModule, MatCardModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })

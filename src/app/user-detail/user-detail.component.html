@@ -1,8 +1,17 @@
-<mat-card>
+<mat-card class="cardHead">
     <img src="/user_2.png" alt="">
     <mat-icon (click)="closeUserDetail()">arrow_back</mat-icon>
     <div class="userInfo" *ngIf="userInfo">
         <h2>{{ userInfo.firstName }} {{ userInfo.lastName }}</h2>
         <p>email</p>
+    </div>
+</mat-card>
+
+<mat-card class="cardData" *ngIf="userInfo">
+    <h3>Address</h3>
+    <div>
+        <p>{{ userInfo.street }}</p>
+        <p>{{ userInfo.zipCode }}</p>
+        <p>{{ userInfo.city }}</p>
     </div>
 </mat-card>
