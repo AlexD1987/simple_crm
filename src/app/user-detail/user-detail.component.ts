@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-user-detail',
@@ -14,7 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent implements OnInit, OnDestroy{
- constructor(private router: Router, private firestore: Firestore, private route: ActivatedRoute) {}
+ constructor(private router: Router, private firestore: Firestore, private route: ActivatedRoute, public dialog: MatDialog) {}
   userInfo: any = {};
   userId: string | undefined;
   private unsubscribe$ = new Subject<void>();
@@ -23,7 +25,7 @@ export class UserDetailComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
         const userId = params.get('id');
-        console.log(userId);
+        this.saveUserId(userId);
 
         const userRef = doc(this.firestore, 'users/' + userId);
         console.log(userRef);
@@ -33,7 +35,6 @@ export class UserDetailComponent implements OnInit, OnDestroy{
           (data: {}) => {
             this.userInfo = data;
             console.log(this.userInfo);
-            this.showData();
           }
         )
       }
@@ -45,11 +46,19 @@ export class UserDetailComponent implements OnInit, OnDestroy{
     this.unsubscribe$.complete();
   }
 
+  saveUserId(id: string | null) {
+    if (id) {
+      this.userId = id;
+    }
+  }
+
  closeUserDetail() {
     this.router.navigate(['/user']);
  }
 
- showData() {
-  console.log(this.userInfo.firstName);
- }
+ openEditDialog() {
+    this.dialog.open(EditDialogComponent, {
+      data: { id: this.userId },
+    });
+ };
 }

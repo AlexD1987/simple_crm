@@ -8,10 +8,11 @@
 </mat-card>
 
 <mat-card class="cardData" *ngIf="userInfo">
-    <h3>Address</h3>
     <div>
+        <h3>Address</h3>
         <p>{{ userInfo.street }}</p>
         <p>{{ userInfo.zipCode }}</p>
         <p>{{ userInfo.city }}</p>
     </div>
+    <mat-icon (click)="openEditDialog()">edit</mat-icon>
 </mat-card>
