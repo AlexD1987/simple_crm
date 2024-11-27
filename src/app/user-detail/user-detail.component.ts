@@ -15,8 +15,9 @@ import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss'
 })
-export class UserDetailComponent implements OnInit, OnDestroy{
- constructor(private router: Router, private firestore: Firestore, private route: ActivatedRoute, public dialog: MatDialog) {}
+
+export class UserDetailComponent implements OnInit, OnDestroy {
+  constructor(private router: Router, private firestore: Firestore, private route: ActivatedRoute, public dialog: MatDialog) { }
   userInfo: any = {};
   userId: string | undefined;
   private unsubscribe$ = new Subject<void>();
@@ -24,12 +25,12 @@ export class UserDetailComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
-        const userId = params.get('id');
-        this.saveUserId(userId);
+      const userId = params.get('id');
+      this.saveUserId(userId);
 
-        const userRef = doc(this.firestore, 'users/' + userId);
-        console.log(userRef);
-        docData(userRef)
+      const userRef = doc(this.firestore, 'users/' + userId);
+      console.log(userRef);
+      docData(userRef)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (data: {}) => {
@@ -37,7 +38,7 @@ export class UserDetailComponent implements OnInit, OnDestroy{
             console.log(this.userInfo);
           }
         )
-      }
+    }
     )
   }
 
@@ -52,13 +53,13 @@ export class UserDetailComponent implements OnInit, OnDestroy{
     }
   }
 
- closeUserDetail() {
+  closeUserDetail() {
     this.router.navigate(['/user']);
- }
+  }
 
- openEditDialog() {
+  openEditDialog() {
     this.dialog.open(EditDialogComponent, {
       data: { id: this.userId },
     });
- };
+  };
 }
